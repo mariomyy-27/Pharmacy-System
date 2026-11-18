@@ -77,11 +77,6 @@ public class Main {
 
         System.out.println(account.getBalance());
 
-        account.deposit(500);
-
-        System.out.println(
-                "Balance: " + account.getBalance()
-        );
 
        try {
             account.withdraw(200);
@@ -93,12 +88,33 @@ public class Main {
                 "Balance: " + account.getBalance()
         );
 
-       try {
+        try {
             account.withdraw(2000);
-     } catch (InsufficientBalanceException e) {
-          e.printStackTrace();
+        } catch (InsufficientBalanceException e) {
+            e.printStackTrace();
+        }
+        System.out.println(
+                "Balance: " + account.getBalance()
+        );
+
+
+        try{
+            account.deposit(500);
+
+        } catch (InvalidAmountException e) {
+            e.printStackTrace();
         }
 
+        System.out.println(
+                "Balance: " + account.getBalance()
+        );
+
+
+        try {
+            account.deposit(-50);
+        } catch (InvalidAmountException e) {
+            e.printStackTrace();
+        }
         System.out.println(
                 "Balance: " + account.getBalance()
         );
