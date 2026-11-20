@@ -39,6 +39,8 @@ public class MedicineController {
         setupAddButton();
 
         setupEditButton();
+
+        setupReportsButton();
     }
 
     // =========================================================
@@ -431,6 +433,23 @@ public class MedicineController {
         alert.setContentText(message);
 
         alert.showAndWait();
+    }
+
+
+//Setup for Reports
+
+    private void setupReportsButton() {
+
+        view.getReportsButton()
+                .setOnAction(event -> {
+
+                    ReportsController reportsController =
+                            new ReportsController(
+                                    allMedicines
+                            );
+
+                    reportsController.openReports();
+                });
     }
 
     // =========================================================
