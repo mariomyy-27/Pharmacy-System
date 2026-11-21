@@ -2,12 +2,7 @@ package sample.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -191,7 +186,7 @@ public class MedicineView {
         editButton =
                 createMenuButton("✏  Edit Medicine");
 
-         settingsButton =
+        settingsButton =
                 createMenuButton("⚙  Settings");
 
         // -------------------------
@@ -210,7 +205,7 @@ public class MedicineView {
         // Logout
         // -------------------------
 
-         logoutButton =
+        logoutButton =
                 createMenuButton("🚪  Logout");
 
         // -------------------------
@@ -696,4 +691,23 @@ public class MedicineView {
     public void showMedicineContent() {
         setCenterContent(medicineContent);
     }
+
+    public Button getSalesButton() { return salesButton; }
+
+
+    public void setLoggedIn(boolean loggedIn) {
+
+        homeButton.setDisable(loggedIn);
+        medicinesButton.setDisable(!loggedIn);
+        salesButton.setDisable(!loggedIn);
+        reportsButton.setDisable(!loggedIn);
+        addButton.setDisable(!loggedIn);
+        editButton.setDisable(!loggedIn);
+        settingsButton.setDisable(!loggedIn);
+        logoutButton.setDisable(!loggedIn);
+        medicineContent.setDisable(!loggedIn);
+
+    }
+
+
 }

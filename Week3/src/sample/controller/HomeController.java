@@ -25,9 +25,12 @@ public class HomeController {
         medicineController.getView()
                 .setCenterContent(view.getRoot());
 
+        medicineController.getView().setLoggedIn(false);
+
         setupLoginButton();
         setupHomeButton();
         setupSignUpButton();
+        setupLogoutButton();
     }
 
     private void setupLoginButton() {
@@ -37,7 +40,7 @@ public class HomeController {
 
     private void login() {
 
-        String userName = view.getUserName();
+        String userName = view.getUserName().trim().toLowerCase();
         String password = view.getPassword();
 
         if (userName.isEmpty() || password.isEmpty()) {
@@ -54,6 +57,8 @@ public class HomeController {
         if (userService.isAuthorized(userName, password)) {
 
             medicineController.getView().setUserName(userName);
+
+            medicineController.getView().setLoggedIn(true);
 
             medicineController.getView().showMedicineContent();
 
@@ -83,21 +88,20 @@ public class HomeController {
         alert.showAndWait();
     }
 
+
     private void setupHomeButton() {
 
         medicineController.getView()
                 .getHomeButton()
                 .setOnAction(e -> {
-
                     view.clearFields();
-
                     medicineController.getView().setUserName("");
-
+                    medicineController.getView().setLoggedIn(false);
                     medicineController.getView()
                             .setCenterContent(view.getRoot());
-
                 });
     }
+
 
 
     private void setupSignUpButton() {
@@ -185,4 +189,20 @@ public class HomeController {
 
         return medicineController;
     }
+
+
+
+    private void setupLogoutButton() {
+
+        medicineController.getView()
+                .getLogoutButton()
+                .setOnAction(e -> {
+                    view.clearFields();
+                    medicineController.getView().setUserName("");
+                    medicineController.getView().setLoggedIn(false);
+                });
+    }
+
+
+
 }
