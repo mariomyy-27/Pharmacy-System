@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SalesService {
 
-    private final String filePath = "Data/sales.txt";
+    private final String filePath = "Week3/Data/sales.txt";
 
     public List<Sale> loadSales() {
 

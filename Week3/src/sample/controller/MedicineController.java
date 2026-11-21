@@ -11,7 +11,6 @@ import sample.view.EditMedicineView;
 import sample.view.MedicinesPageView;
 import sample.view.SettingsView;
 import sample.view.MedicineView;
-import sample.controller.SalesController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class MedicineController {
 
         view.getMedicineTable()
                 .setItems(allMedicines);
-System.out.println("Medicines loaded: " + allMedicines.size());
+        System.out.println("Medicines loaded: " + allMedicines.size());
         updateMainStatistics();
 
         setupSearch();
@@ -56,11 +55,10 @@ System.out.println("Medicines loaded: " + allMedicines.size());
 
         setupReportsButton();
 
-setupSalesButton();
+        setupSalesButton();
 
-setupSettingsButton();
+        setupSettingsButton();
 
-setupLogoutButton();
     }
 
     // =========================================================
@@ -620,12 +618,12 @@ setupLogoutButton();
                 });
     }
 
-            private void setupSalesButton() {
+    private void setupSalesButton() {
 
-    view.getSalesButton().setOnAction(event -> {
-        new SalesController(allMedicines);
-    });
-}
+        view.getSalesButton().setOnAction(event -> {
+            new SalesController(allMedicines);
+        });
+    }
     // =========================================================
     // GET VIEW
     // =========================================================
@@ -649,28 +647,5 @@ setupLogoutButton();
         });
     }
 
-    // =========================================================
-    // LOGOUT BUTTON
-    // =========================================================
-
-    private void setupLogoutButton() {
-
-        view.getLogoutButton().setOnAction(event -> {
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-            alert.setTitle("Logout");
-            alert.setHeaderText("Are you sure you want to logout?");
-            alert.setContentText("Do you want to close the application?");
-
-            alert.showAndWait().ifPresent(response -> {
-
-                if (response == javafx.scene.control.ButtonType.OK) {
-                    javafx.application.Platform.exit();
-                }
-
-            });
-        });
-    }
 
 }
