@@ -13,7 +13,7 @@ import java.util.List;
 public class MedicineService {
 
     private final String filePath =
-            "Week3/Data/medicines.txt";
+            "Data/medicines.txt";
 
     // =========================================================
     // LOAD MEDICINES

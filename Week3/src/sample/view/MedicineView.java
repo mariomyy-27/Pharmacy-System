@@ -40,6 +40,7 @@ public class MedicineView {
 
     private Button reportsButton;
 
+private Button salesButton;
     private Label totalValueLabel;
 
     private Label availableValueLabel;
@@ -148,8 +149,8 @@ public class MedicineView {
         medicinesButton =
                 createMenuButton("💊  Medicines");
 
-        Button salesButton =
-                createMenuButton("🛒  Sales");
+      salesButton =
+        createMenuButton("🛒  Sales");
 
         reportsButton =
                 createMenuButton("📊  Reports");
@@ -658,5 +659,8 @@ public class MedicineView {
     public Button getReportsButton() {
         return reportsButton;
     }
+    public Button getSalesButton() {
+    return salesButton;
+}
 }
 

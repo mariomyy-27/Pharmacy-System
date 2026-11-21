@@ -10,6 +10,7 @@ import sample.view.AddMedicineView;
 import sample.view.EditMedicineView;
 import sample.view.MedicinesPageView;
 import sample.view.MedicineView;
+import sample.controller.SalesController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class MedicineController {
 
         view.getMedicineTable()
                 .setItems(allMedicines);
-
+System.out.println("Medicines loaded: " + allMedicines.size());
         updateMainStatistics();
 
         setupSearch();
@@ -53,6 +54,8 @@ public class MedicineController {
         setupMedicinesButton();
 
         setupReportsButton();
+
+        setupSalesButton();
     }
 
     // =========================================================
@@ -612,6 +615,12 @@ public class MedicineController {
                 });
     }
 
+            private void setupSalesButton() {
+
+    view.getSalesButton().setOnAction(event -> {
+        new SalesController(allMedicines);
+    });
+}
     // =========================================================
     // GET VIEW
     // =========================================================
