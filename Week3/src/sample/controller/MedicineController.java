@@ -647,5 +647,4 @@ public class MedicineController {
         });
     }
 
-
 }
