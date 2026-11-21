@@ -635,30 +635,42 @@ setupLogoutButton();
         return view;
     }
 
+    // =========================================================
+    // SETTINGS BUTTON
+    // =========================================================
+
     private void setupSettingsButton() {
-    view.getSettingsButton().setOnAction(event -> {
-        SettingsView settingsView = new SettingsView();
-        settingsView.show();
-    });
-}
+
+        view.getSettingsButton().setOnAction(event -> {
+
+            SettingsView settingsView = new SettingsView();
+
+            settingsView.show();
+        });
+    }
+
+    // =========================================================
+    // LOGOUT BUTTON
+    // =========================================================
 
     private void setupLogoutButton() {
 
-    view.getLogoutButton().setOnAction(event -> {
+        view.getLogoutButton().setOnAction(event -> {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-        alert.setTitle("Logout");
-        alert.setHeaderText("Are you sure you want to logout?");
-        alert.setContentText("Do you want to close the application?");
+            alert.setTitle("Logout");
+            alert.setHeaderText("Are you sure you want to logout?");
+            alert.setContentText("Do you want to close the application?");
 
-        alert.showAndWait().ifPresent(response -> {
+            alert.showAndWait().ifPresent(response -> {
 
-            if (response == javafx.scene.control.ButtonType.OK) {
-                javafx.application.Platform.exit();
-            }
+                if (response == javafx.scene.control.ButtonType.OK) {
+                    javafx.application.Platform.exit();
+                }
 
+            });
         });
-    });
-}
+    }
+
 }

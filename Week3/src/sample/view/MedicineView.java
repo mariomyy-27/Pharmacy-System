@@ -13,6 +13,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
 
 import sample.model.Medicine;
 
@@ -23,6 +25,9 @@ public class MedicineView {
     // =========================
 
     private final BorderPane root;
+
+    private final StackPane contentArea;
+    private final VBox medicineContent;
 
     // =========================
     // Controls
@@ -37,21 +42,24 @@ public class MedicineView {
     private Button editButton;
 
     private Button medicinesButton;
-
     private Button reportsButton;
+    private Button salesButton;
+    private Button settingsButton;
+    private Button logoutButton;
 
-private Button salesButton;
-private Button settingsButton;
-private Button logoutButton;
     private Label totalValueLabel;
-
     private Label availableValueLabel;
-
     private Label outOfStockValueLabel;
+
+    private Button homeButton;
+    private Label userLabel;
 
     public MedicineView() {
 
         root = new BorderPane();
+
+        contentArea = new StackPane();
+        medicineContent = createMainContent();
 
         createLayout();
     }
@@ -66,7 +74,9 @@ private Button logoutButton;
 
         root.setLeft(createSidebar());
 
-        root.setCenter(createMainContent());
+        contentArea.getChildren().add(medicineContent);
+
+        root.setCenter(contentArea);
     }
 
     // =========================================================
@@ -89,8 +99,10 @@ private Button logoutButton;
                 subtitle
         );
 
-        Label user =
-                new Label("Mohammed  ● Online");
+        userLabel = new Label("");
+
+        Label status =
+                new Label("● Online");
 
         HBox header =
                 new HBox();
@@ -112,7 +124,8 @@ private Button logoutButton;
 
         header.getChildren().addAll(
                 branding,
-                user
+                userLabel,
+                status
         );
 
         HBox.setHgrow(
@@ -121,6 +134,10 @@ private Button logoutButton;
         );
 
         return header;
+    }
+
+    public void setUserName(String userName) {
+        userLabel.setText(userName);
     }
 
     // =========================================================
@@ -145,14 +162,14 @@ private Button logoutButton;
         Label dashboardTitle =
                 new Label("DASHBOARD");
 
-        Button homeButton =
+        homeButton =
                 createMenuButton("🏠  Home");
 
         medicinesButton =
                 createMenuButton("💊  Medicines");
 
-      salesButton =
-        createMenuButton("🛒  Sales");
+        salesButton =
+                createMenuButton("🛒  Sales");
 
         reportsButton =
                 createMenuButton("📊  Reports");
@@ -164,7 +181,7 @@ private Button logoutButton;
         Label managementTitle =
                 new Label("MANAGEMENT");
 
-        //addButton &editbutton
+        //addButton & editbutton
         // دول انا مفعلهم المطلوب منكم تفعيل الباقى ك تاسك
 
         addButton =
@@ -643,34 +660,36 @@ private Button logoutButton;
         return addButton;
     }
 
-
-    // =========================================================
     // GET MEDICINES BUTTON
-    // =========================================================
-
     public Button getMedicinesButton() {
-
         return medicinesButton;
     }
 
-
-// ============================================================
-//Reports button Getter
-// ============================================================
-
+    // GET REPORTS BUTTON
     public Button getReportsButton() {
         return reportsButton;
     }
-public Button getSalesButton() {
-    return salesButton;
-}
 
-public Button getSettingsButton() {
-    return settingsButton;
-}
+    // GET SETTINGS BUTTON
+    public Button getSettingsButton() {
+        return settingsButton;
+    }
 
-public Button getLogoutButton() {
-    return logoutButton;
-}
-}
+    // GET LOGOUT BUTTON
+    public Button getLogoutButton() {
+        return logoutButton;
+    }
 
+    // GET HOME BUTTON
+    public Button getHomeButton() {
+        return homeButton;
+    }
+
+    public void setCenterContent(Node content) {
+        contentArea.getChildren().setAll(content);
+    }
+
+    public void showMedicineContent() {
+        setCenterContent(medicineContent);
+    }
+}
