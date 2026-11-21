@@ -40,10 +40,9 @@ public class MedicineView {
 
     private Button reportsButton;
 
-    private Button settingsButton;
-
-    private Button logoutButton;
-
+private Button salesButton;
+private Button settingsButton;
+private Button logoutButton;
     private Label totalValueLabel;
 
     private Label availableValueLabel;
@@ -152,8 +151,8 @@ public class MedicineView {
         medicinesButton =
                 createMenuButton("💊  Medicines");
 
-        Button salesButton =
-                createMenuButton("🛒  Sales");
+      salesButton =
+        createMenuButton("🛒  Sales");
 
         reportsButton =
                 createMenuButton("📊  Reports");
@@ -662,16 +661,16 @@ public class MedicineView {
     public Button getReportsButton() {
         return reportsButton;
     }
+public Button getSalesButton() {
+    return salesButton;
+}
 
+public Button getSettingsButton() {
+    return settingsButton;
+}
 
-    //settings button
-    public Button getSettingsButton() {
-        return settingsButton;
-    }
-
-
-    public Button getLogoutButton() {
-        return logoutButton;
-    }
+public Button getLogoutButton() {
+    return logoutButton;
+}
 }
 

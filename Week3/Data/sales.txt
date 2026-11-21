@@ -1,0 +1,5 @@
+Panadol,50.0,2
+Paracetamol,40.0,1
+Panadol Extra,75.0,1
+Augmentin,120.0,1
+Brufen,70.0,2

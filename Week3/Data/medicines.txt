@@ -1,7 +1,7 @@
-Panadol,50.0,35
-Panadol Extra,75.0,12
-Paracetamol,40.0,20
-Augmentin,120.0,8
-Brufen,70.0,20
+Panadol,50.0,33
+Panadol Extra,75.0,11
+Paracetamol,40.0,19
+Augmentin,120.0,7
+Brufen,70.0,18
 Cataflam,45.0,0
 coldandfree,80.0,100
