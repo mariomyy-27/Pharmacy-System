@@ -664,6 +664,10 @@ public class MedicineView {
     public Button getMedicinesButton() {
         return medicinesButton;
     }
+    //GET SALES BUTTON
+    public Button getSalesButton(){
+        return salesButton;
+    }
 
     // GET REPORTS BUTTON
     public Button getReportsButton() {
