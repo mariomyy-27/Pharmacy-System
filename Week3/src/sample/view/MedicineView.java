@@ -43,6 +43,7 @@ public class MedicineView {
 
     private Button medicinesButton;
     private Button reportsButton;
+    private Button salesButton;
     private Button settingsButton;
     private Button logoutButton;
 
@@ -167,7 +168,7 @@ public class MedicineView {
         medicinesButton =
                 createMenuButton("💊  Medicines");
 
-        Button salesButton =
+        salesButton =
                 createMenuButton("🛒  Sales");
 
         reportsButton =
