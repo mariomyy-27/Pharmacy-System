@@ -9,6 +9,7 @@ import sample.service.MedicineService;
 import sample.view.AddMedicineView;
 import sample.view.EditMedicineView;
 import sample.view.MedicinesPageView;
+import sample.view.SettingsView;
 import sample.view.MedicineView;
 
 import java.util.ArrayList;
@@ -53,6 +54,11 @@ public class MedicineController {
         setupMedicinesButton();
 
         setupReportsButton();
+
+        setupSettingsButton();
+
+        setupLogoutButton();
+
     }
 
     // =========================================================
@@ -620,4 +626,31 @@ public class MedicineController {
 
         return view;
     }
+
+    private void setupSettingsButton() {
+    view.getSettingsButton().setOnAction(event -> {
+        SettingsView settingsView = new SettingsView();
+        settingsView.show();
+    });
+}
+
+    private void setupLogoutButton() {
+
+    view.getLogoutButton().setOnAction(event -> {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle("Logout");
+        alert.setHeaderText("Are you sure you want to logout?");
+        alert.setContentText("Do you want to close the application?");
+
+        alert.showAndWait().ifPresent(response -> {
+
+            if (response == javafx.scene.control.ButtonType.OK) {
+                javafx.application.Platform.exit();
+            }
+
+        });
+    });
+}
 }
