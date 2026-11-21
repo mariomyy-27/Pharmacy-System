@@ -11,45 +11,56 @@ public class UserService {
     private final String filePath =
             "Week3/Data/users.txt";
 
-    public boolean isAuthorized(String userName, String password){
-        try(
-                BufferedReader reader = new BufferedReader(new FileReader(filePath))
-        ){
+    public boolean isAuthorized(String userName, String password) {
+        try (
+                BufferedReader reader = new BufferedReader(
+                        new FileReader(filePath)
+                )
+        ) {
             String line;
-            while ((line=reader.readLine()) != null){
+
+            while ((line = reader.readLine()) != null) {
 
                 String[] parts = line.split(",");
 
-                if(parts[0].equalsIgnoreCase(userName.toLowerCase()) && parts[1].equals(password)){
+                String savedUserName = parts[0].trim();
+                String savedPassword = parts[1];
+
+                if (savedUserName.equalsIgnoreCase(userName.trim())
+                        && savedPassword.equals(password)) {
                     return true;
                 }
             }
-        }catch (IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return false;
-
     }
 
-    public boolean userNameExists(String userName){
-        try(
-                BufferedReader reader = new BufferedReader(new FileReader(filePath))
-        ){
+    public boolean userNameExists(String userName) {
+        try (
+                BufferedReader reader = new BufferedReader(
+                        new FileReader(filePath)
+                )
+        ) {
             String line;
-            while ((line=reader.readLine()) != null){
+
+            while ((line = reader.readLine()) != null) {
 
                 String[] parts = line.split(",");
-                if (parts[0].equalsIgnoreCase(userName.toLowerCase())){
+
+                if (parts[0].trim().equalsIgnoreCase(userName.trim())) {
                     return true;
                 }
             }
-        }catch (IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return false;
-
     }
 
     public boolean registerNewUser(String userName, String password){
