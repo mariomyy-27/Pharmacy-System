@@ -3,18 +3,17 @@ package sample;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.controller.MedicineController;
+import sample.controller.HomeController;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
 
-        MedicineController controller =
-                new MedicineController();
+        HomeController controller = new HomeController();
 
         Scene scene = new Scene(
-                controller.getView().getRoot(),
+                controller.getMedicineController().getView().getRoot(),
                 1000,
                 700
         );
