@@ -8,7 +8,11 @@ import sample.model.Medicine;
 import sample.service.MedicineService;
 import sample.view.AddMedicineView;
 import sample.view.EditMedicineView;
+import sample.view.MedicinesPageView;
 import sample.view.MedicineView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MedicineController {
 
@@ -17,6 +21,10 @@ public class MedicineController {
 
     private final ObservableList<Medicine>
             allMedicines;
+
+    private final List<MedicinesPageView>
+            openMedicinesPages =
+            new ArrayList<>();
 
     public MedicineController() {
 
@@ -34,13 +42,156 @@ public class MedicineController {
         view.getMedicineTable()
                 .setItems(allMedicines);
 
+        updateMainStatistics();
+
         setupSearch();
 
         setupAddButton();
 
         setupEditButton();
 
+        setupMedicinesButton();
+
         setupReportsButton();
+    }
+
+    // =========================================================
+    // STATISTICS
+    // =========================================================
+
+    private void updateMainStatistics() {
+
+        int total =
+                allMedicines.size();
+
+        int available = 0;
+
+        int outOfStock = 0;
+
+        for (Medicine medicine :
+                allMedicines) {
+
+            if (medicine.getQuantity() > 0) {
+
+                available++;
+
+            } else {
+
+                outOfStock++;
+            }
+        }
+
+        view.updateStatistics(
+                total,
+                available,
+                outOfStock
+        );
+    }
+
+    // =========================================================
+    // MEDICINES BUTTON (OPEN IN NEW WINDOW)
+    // =========================================================
+
+    private void setupMedicinesButton() {
+
+        view.getMedicinesButton()
+                .setOnAction(event -> {
+
+                    MedicinesPageView pageView =
+                            new MedicinesPageView(
+                                    allMedicines
+                            );
+
+                    pageView.refreshStatistics(
+                            allMedicines
+                    );
+
+                    openMedicinesPages.add(
+                            pageView
+                    );
+
+                    pageView.getStage()
+                            .setOnHidden(e -> {
+
+                                openMedicinesPages.remove(
+                                        pageView
+                                );
+                            });
+
+                    pageView.getSearchField()
+                            .textProperty()
+                            .addListener(
+                                    (observable,
+                                     oldValue,
+                                     newValue) -> {
+
+                                        filterPageMedicines(
+                                                pageView,
+                                                newValue
+                                        );
+                                    }
+                            );
+
+                    pageView.getSearchButton()
+                            .setOnAction(e -> {
+
+                                filterPageMedicines(
+                                        pageView,
+                                        pageView.getSearchField()
+                                                .getText()
+                                );
+                            });
+
+                    pageView.show();
+                });
+    }
+
+    private void filterPageMedicines(
+            MedicinesPageView pageView,
+            String searchText) {
+
+        ObservableList<Medicine>
+                filtered =
+                FXCollections.observableArrayList();
+
+        String search =
+                searchText
+                        .toLowerCase()
+                        .trim();
+
+        for (Medicine medicine :
+                allMedicines) {
+
+            if (medicine.getName()
+                    .toLowerCase()
+                    .startsWith(search)) {
+
+                filtered.add(medicine);
+            }
+        }
+
+        pageView.getMedicineTable()
+                .setItems(filtered);
+    }
+
+    private void refreshOpenMedicinesPages() {
+
+        for (MedicinesPageView pageView :
+                openMedicinesPages) {
+
+            pageView.refreshStatistics(
+                    allMedicines
+            );
+
+            filterPageMedicines(
+                    pageView,
+                    pageView.getSearchField()
+                            .getText()
+            );
+
+            pageView.getMedicineTable()
+                    .refresh();
+        }
     }
 
     // =========================================================
@@ -226,7 +377,7 @@ public class MedicineController {
             );
 
             // -------------------------
-            // Refresh Table
+            // Refresh Table & Stats
             // -------------------------
 
             view.getMedicineTable()
@@ -234,6 +385,10 @@ public class MedicineController {
 
             view.getMedicineTable()
                     .refresh();
+
+            updateMainStatistics();
+
+            refreshOpenMedicinesPages();
 
             // -------------------------
             // Close Window
@@ -396,6 +551,10 @@ public class MedicineController {
             view.getMedicineTable()
                     .refresh();
 
+            updateMainStatistics();
+
+            refreshOpenMedicinesPages();
+
             editView.getStage()
                     .close();
 
@@ -435,8 +594,9 @@ public class MedicineController {
         alert.showAndWait();
     }
 
-
-//Setup for Reports
+    // =========================================================
+    // REPORTS BUTTON
+    // =========================================================
 
     private void setupReportsButton() {
 
