@@ -8,8 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,9 +19,6 @@ public class SettingsView {
     private PasswordField newPasswordField;
     private PasswordField confirmPasswordField;
 
-    private RadioButton lightTheme;
-    private RadioButton darkTheme;
-
     private String currentPassword = "1234";
 
     public SettingsView() {
@@ -33,6 +28,8 @@ public class SettingsView {
     public void show() {
 
         VBox layout = new VBox(15);
+
+        layout.setPadding(new Insets(20));
 
         Label title = new Label("Settings");
 
@@ -46,32 +43,17 @@ public class SettingsView {
         confirmPasswordField.setPromptText("Confirm New Password");
 
         Button saveButton = new Button("Save Changes");
-
-        Label themeLabel = new Label("Choose Theme:");
-
-        lightTheme = new RadioButton("Light");
-        darkTheme = new RadioButton("Dark");
-
-        ToggleGroup themeGroup = new ToggleGroup();
-
-        lightTheme.setToggleGroup(themeGroup);
-        darkTheme.setToggleGroup(themeGroup);
-
-        lightTheme.setSelected(true);
-
-        layout.setStyle("-fx-background-color: #f2f2f2;");
-
-        lightTheme.setOnAction(event -> {
-            layout.setStyle("-fx-background-color: #f2f2f2;");
-        });
-
-        darkTheme.setOnAction(event -> {
-            layout.setStyle("-fx-background-color: #3a3a3a;");
-        });
+        Button clearButton = new Button("Clear Fields");
+        Button aboutButton = new Button("About Application");
+        Button closeButton = new Button("Close");
 
         saveButton.setOnAction(event -> changePassword());
 
-        layout.setPadding(new Insets(20));
+        clearButton.setOnAction(event -> clearFields());
+
+        aboutButton.setOnAction(event -> showAbout());
+
+        closeButton.setOnAction(event -> stage.close());
 
         layout.getChildren().addAll(
                 title,
@@ -79,12 +61,12 @@ public class SettingsView {
                 newPasswordField,
                 confirmPasswordField,
                 saveButton,
-                themeLabel,
-                lightTheme,
-                darkTheme
+                clearButton,
+                aboutButton,
+                closeButton
         );
 
-        Scene scene = new Scene(layout, 400, 500);
+        Scene scene = new Scene(layout, 400, 430);
 
         stage.setTitle("Settings");
         stage.setScene(scene);
@@ -103,6 +85,11 @@ public class SettingsView {
             return;
         }
 
+        if (newPasswordField.getText().length() < 4) {
+            showAlert("Error", "Password must be at least 4 characters!");
+            return;
+        }
+
         if (!newPasswordField.getText().equals(confirmPasswordField.getText())) {
             showAlert("Error", "New passwords do not match!");
             return;
@@ -112,9 +99,30 @@ public class SettingsView {
 
         showAlert("Success", "Password changed successfully!");
 
+        stage.close();
+    }
+
+    private void clearFields() {
+
         oldPasswordField.clear();
         newPasswordField.clear();
         confirmPasswordField.clear();
+    }
+
+    private void showAbout() {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        alert.setTitle("About Application");
+        alert.setHeaderText("Pharmacy Management System");
+
+        alert.setContentText(
+                "This application helps manage pharmacy medicines.\n\n" +
+                "Version: 1.0\n" +
+                "Developed using Java and JavaFX."
+        );
+
+        alert.showAndWait();
     }
 
     private void showAlert(String title, String message) {
